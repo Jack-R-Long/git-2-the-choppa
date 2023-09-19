@@ -2,7 +2,7 @@
 
 # Print help message
 if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
-  echo "Usage: ./git_2_the_choppa.sh [-v|--verbose]"
+  echo "Usage: ./git-2-the-choppa.sh [-v|--verbose]"
   echo " "
   echo "Options:"
   echo "  -v, --verbose   Print detailed messages while checking repositories"
