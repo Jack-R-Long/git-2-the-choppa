@@ -1,4 +1,4 @@
-INSTALL_DIR = $(HOME)/bin
+INSTALL_DIR = $(HOME)/git_choppa
 
 install:
 	@mkdir -p $(INSTALL_DIR)
