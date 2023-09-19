@@ -24,13 +24,13 @@ if [[ "$1" == "-v" ]] || [[ "$1" == "--verbose" ]]; then
   VERBOSE=1
 fi
 
-for repo in */; do
-  cd $repo
+for dir in */; do
+  cd "$dir" || continue
 
   # Check if the directory is a git repository
   if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     if [[ $VERBOSE -eq 1 ]]; then
-      echo "Checking repository: '$repo'"
+      echo "Checking repository: '$dir'"
     fi
     
     # Fetch the latest changes from the remote repository
@@ -52,24 +52,24 @@ for repo in */; do
         # Compare the local and remote commits
         if [ "$local_commit" != "$remote_commit" ]; then
           if [[ $VERBOSE -eq 1 ]]; then
-            echo "New commits are available in repository '$repo' on branch '$local_branch'"
+            echo "New commits are available in repository '$dir' on branch '$local_branch'"
           fi
-          NEW_COMMITS_SUMMARY+=("Repository '$repo' - New commits on branch '$local_branch'")
+          NEW_COMMITS_SUMMARY+=("Repository '$dir' - New commits on branch '$local_branch'")
         else
           if [[ $VERBOSE -eq 1 ]]; then
-            echo "No new commits in repository '$repo' on branch '$local_branch'"
+            echo "No new commits in repository '$dir' on branch '$local_branch'"
           fi
         fi
       else
         if [[ $VERBOSE -eq 1 ]]; then
-          echo "Local branch '$local_branch' does not exist in repository '$repo'"
+          echo "Local branch '$local_branch' does not exist in repository '$dir'"
         fi
-        NEW_BRANCHES_SUMMARY+=("Repository '$repo' - New remote branch detected: '$local_branch'")
+        NEW_BRANCHES_SUMMARY+=("Repository '$dir' - New remote branch detected: '$local_branch'")
       fi
     done
   else
     if [[ $VERBOSE -eq 1 ]]; then
-      echo "'$repo' is not a git repository"
+      echo "'$dir' is not a git repository"
     fi
   fi
 
